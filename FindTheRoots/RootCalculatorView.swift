@@ -15,6 +15,18 @@ struct RootCalculatorView: View {
     @State var c: Double = 1
     
     //Mark: Computer properties
+
+    let discriminant = b * b - 4 * a * c
+    
+    if discriminant < 0 {
+        return "No real roots."
+    } else {
+        let x1 = (b * -1 - discriminant.squareRoot() ) / (2 * a)
+        let x2 = (b * -1 + discriminant.squareRoot() ) / (2 * a)
+        
+        return "x ≈ \(x1 .formatted(.number.precision(.fractionlength(2)))) and x ≈ \(x2.formatted(.number.precision(.fractionlength(2))))"
+    }
+    
     
     
     
@@ -24,33 +36,35 @@ struct RootCalculatorView: View {
             
             VStack {
                 
-                
-                
                 Image("quad")
                     .resizable()
                     .scaledToFit()
                 
+                
                 HStack(alignment: .top) {
                     
-                    Slider(value: $a, in: -100...100) {
-                        Text("a")
+                    VStack{
+                        Text("a: \(a.formatted(.number.precision(.fractionLength(1)))) ")
+                        Slider(value: $a, in: -100...100) {
+                        }
                         
                     }
-                    
-                    Slider(value: $b, in: -100...100) {
-                        Text("b")
+                    VStack{
+                        Text("b: \(b.formatted(.number.precision(.fractionLength(1))))")
+                        Slider(value: $b, in: -100...100) {
+                        }
                         
                     }
-                    
-                    Slider(value: $c, in: -100...100) {
-                        Text("c")
+                    VStack{
+                        Text("c: \(c.formatted(.number.precision(.fractionLength(1))))")
+                        Slider(value: $c, in: -100...100) {
+                        }
                     }
-                    
-                    
-                } .padding(.horizontal)
+                }
+                .padding(.horizontal)
             }
+            .navigationTitle("Find the Roots")
         }
-        .navigationTitle("Find the Roots")
     }
 }
 
