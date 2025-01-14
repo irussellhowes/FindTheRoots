@@ -11,9 +11,11 @@ struct RootCalculatorView: View {
     
     // Mark: Stroed properties
     @State var a: Double = 1
+    @State var b: Double = 1
+    @State var c: Double = 1
     
     //Mark: Computer properties
-
+    
     
     
     var body: some View {
@@ -30,22 +32,22 @@ struct RootCalculatorView: View {
                 
                 HStack(alignment: .top) {
                     
-                    
-                    VStack {
-                        Slider(value: $a, in: -100...100, step: 0.1,
-                               minimumValueLabel: Text("-100"),
-                               maximumValueLabel: Text("100"))
-                        Text("a: \(Int(a))")
-                            .padding(.bottom)
-                        
-                        }
-                    VStack {
-                    }
-                    VStack {
+                    Slider(value: $a, in: -100...100) {
+                        Text("a")
                         
                     }
                     
-                }
+                    Slider(value: $b, in: -100...100) {
+                        Text("b")
+                        
+                    }
+                    
+                    Slider(value: $c, in: -100...100) {
+                        Text("c")
+                    }
+                    
+                    
+                } .padding(.horizontal)
             }
         }
         .navigationTitle("Find the Roots")
