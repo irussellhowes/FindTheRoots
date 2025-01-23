@@ -15,16 +15,19 @@ struct RootCalculatorView: View {
     @State var c: Double = 1
     
     //Mark: Computer properties
-
-    let discriminant = b * b - 4 * a * c
     
-    if discriminant < 0 {
-        return "No real roots."
-    } else {
-        let x1 = (b * -1 - discriminant.squareRoot() ) / (2 * a)
-        let x2 = (b * -1 + discriminant.squareRoot() ) / (2 * a)
+    var result: String{
         
-        return "x ≈ \(x1 .formatted(.number.precision(.fractionlength(2)))) and x ≈ \(x2.formatted(.number.precision(.fractionlength(2))))"
+        let discriminant = b * b - 4 * a * c
+        
+        if discriminant < 0 {
+            return "No real roots."
+        } else {
+            let x1 = (b * -1 - discriminant.squareRoot() ) / (2 * a)
+            let x2 = (b * -1 + discriminant.squareRoot() ) / (2 * a)
+            
+            return "x ≈ \(x1 .formatted(.number.precision(.fractionLength(2)))) and x ≈ \(x2.formatted(.number.precision(.fractionLength(2))))"
+        }
     }
     
     
@@ -59,9 +62,14 @@ struct RootCalculatorView: View {
                         Text("c: \(c.formatted(.number.precision(.fractionLength(1))))")
                         Slider(value: $c, in: -100...100) {
                         }
+                        
                     }
+
+                   
                 }
                 .padding(.horizontal)
+                Text(result)
+
             }
             .navigationTitle("Find the Roots")
         }
