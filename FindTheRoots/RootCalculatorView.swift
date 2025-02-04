@@ -13,6 +13,7 @@ struct RootCalculatorView: View {
     @State var a: Double = 1
     @State var b: Double = 1
     @State var c: Double = 1
+    @State private var history: [String] = []
     
     //Mark: Computer properties
     
@@ -44,37 +45,59 @@ struct RootCalculatorView: View {
                     .scaledToFit()
                 
                 
-                HStack(alignment: .top) {
+                HStack {
                     
                     VStack{
                         Text("a: \(a.formatted(.number.precision(.fractionLength(1)))) ")
                         Slider(value: $a, in: -100...100) {
                         }
+                        .tint(.pink)
                         
                     }
                     VStack{
                         Text("b: \(b.formatted(.number.precision(.fractionLength(1))))")
                         Slider(value: $b, in: -100...100) {
                         }
+                        .tint(.pink)
                         
                     }
                     VStack{
                         Text("c: \(c.formatted(.number.precision(.fractionLength(1))))")
                         Slider(value: $c, in: -100...100) {
                         }
+                        .tint(.pink)
                         
                     }
-
-                   
+                    
+                    
                 }
                 .padding(.horizontal)
                 Text(result)
-
+                
+                Button("Save") {
+                    history.append(result)
+                }
+                .padding()
+                .buttonStyle(.borderedProminent)
+                .tint(.pink)
+                
+                if !history.isEmpty {
+                    List {
+                        Section(header: Text("History")) {
+                            ForEach(history.reversed(), id: \.self) { answer in
+                                Text(answer)
+                            }
+                        }
+                    }
+                    .listStyle(.insetGrouped)
+                }
+                Spacer()
             }
-            .navigationTitle("Find the Roots")
         }
+        .navigationTitle("Find the Roots")
     }
 }
+
 
 #Preview {
     RootCalculatorView()
